@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Download Links</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; background: #f9f9f9; }
+    h1 { color: #333; }
+    .file { margin-bottom: 1rem; padding: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1);}
+    .file a { font-weight: bold; text-decoration: none; color: #1a73e8; }
+    .size { font-size: 0.9rem; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Download Links</h1>
+
+  <div class="file">
+    <a href="http://ftp.ctgfun.com/English/Frankenstein.2025.1080p.WEBRip.x264%20%5BDDN%5D/Frankenstein.2025.1080p.WEBRip.x264%20%5BDDN%5D.mp4" target="_blank" download>
+      Frankenstein 2025
+    </a>
+    <div class="size" id="size1">Fetching size...</div>
+  </div>
+
+  <script>
+    async function fetchSize(url, elementId) {
+      try {
+        const res = await fetch(url, { method: 'HEAD' });
+        if (!res.ok) throw new Error('Cannot fetch headers');
+        const size = res.headers.get('Content-Length');
+        if(size) {
+          const mb = (size / 1024 / 1024).toFixed(2);
+          document.getElementById(elementId).textContent = `Size: ${mb} MB`;
+        } else {
+          document.getElementById(elementId).textContent = 'Size: unknown';
+        }
+      } catch (e) {
+        document.getElementById(elementId).textContent = 'Size: unknown or CORS blocked';
+      }
+    }
+
+    fetchSize('http://ftp.ctgfun.com/English/Frankenstein.2025.1080p.WEBRip.x264%20%5BDDN%5D/Frankenstein.2025.1080p.WEBRip.x264%20%5BDDN%5D.mp4', 'size1');
+  </script>
+</body>
+</html>
